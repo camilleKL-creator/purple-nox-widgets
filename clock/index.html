@@ -4,8 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Purple Nox Clock</title>
-
 <style>
 * {
   box-sizing: border-box;
@@ -14,47 +12,44 @@
 html, body {
   margin: 0;
   padding: 0;
-
   width: 100%;
   height: 100%;
+  overflow: hidden !important;
+  background: #0B0610;
+}
 
-  overflow: hidden;
-
-  background: #08050D;
-
+body {
   font-family: Inter, -apple-system, BlinkMacSystemFont,
                "Segoe UI", Arial, sans-serif;
 }
 
 .widget {
-  position: absolute;
+  position: fixed;
   inset: 0;
 
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
+  align-items: center;
+
+  overflow: hidden;
 
   background:
     radial-gradient(
-      circle at 50% 0%,
-      rgba(168, 85, 247, 0.22),
+      ellipse at 50% 0%,
+      rgba(139, 60, 220, 0.20),
       transparent 65%
     ),
-    linear-gradient(
-      135deg,
-      #160B24,
-      #08050D
-    );
+    #0B0610;
 
-  border: 1px solid rgba(168, 85, 247, 0.35);
-  border-radius: 16px;
+  border: 1px solid rgba(168, 85, 247, 0.28);
+  border-radius: 14px;
 }
 
 .time {
-  color: #F5F0FF;
+  color: #F8F5FF;
 
-  font-size: 42px;
+  font-size: clamp(30px, 10vh, 48px);
   font-weight: 700;
   line-height: 1;
 
@@ -64,9 +59,9 @@ html, body {
 .date {
   margin-top: 10px;
 
-  color: #B05CFF;
+  color: #B85CFF;
 
-  font-size: 11px;
+  font-size: clamp(9px, 2.5vh, 12px);
   font-weight: 600;
 
   letter-spacing: 2px;
@@ -79,37 +74,31 @@ html, body {
 <body>
 
 <div class="widget">
-
   <div class="time" id="time">--:--</div>
-
   <div class="date" id="date"></div>
-
 </div>
 
 <script>
-
 function updateClock() {
 
   const now = new Date();
 
   document.getElementById("time").textContent =
-    new Intl.DateTimeFormat("fr-FR", {
+    now.toLocaleTimeString("fr-FR", {
       hour: "2-digit",
-      minute: "2-digit",
-      hour12: false
-    }).format(now);
+      minute: "2-digit"
+    });
 
   document.getElementById("date").textContent =
-    new Intl.DateTimeFormat("fr-FR", {
+    now.toLocaleDateString("fr-FR", {
       weekday: "long",
       day: "2-digit",
       month: "long"
-    }).format(now);
+    });
 }
 
 updateClock();
 setInterval(updateClock, 10000);
-
 </script>
 
 </body>
