@@ -14,7 +14,7 @@ html, body {
   padding: 0;
   width: 100%;
   height: 100%;
-  overflow: hidden !important;
+  overflow: hidden;
   background: #0B0610;
 }
 
@@ -42,17 +42,18 @@ body {
     ),
     #0B0610;
 
-  border: 1px solid rgba(168, 85, 247, 0.28);
-  border-radius: 14px;
+  /* PAS DE CONTOUR */
+  border: none;
+
+  /* PAS DE COINS ARRONDIS */
+  border-radius: 0;
 }
 
 .time {
   color: #F8F5FF;
-
   font-size: clamp(30px, 10vh, 48px);
   font-weight: 700;
   line-height: 1;
-
   letter-spacing: -2px;
 }
 
@@ -60,7 +61,6 @@ body {
   margin-top: 10px;
 
   color: #B85CFF;
-
   font-size: clamp(9px, 2.5vh, 12px);
   font-weight: 600;
 
@@ -80,7 +80,6 @@ body {
 
 <script>
 function updateClock() {
-
   const now = new Date();
 
   document.getElementById("time").textContent =
