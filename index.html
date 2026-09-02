@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,150 +8,115 @@
 
 <style>
 
-  /* RESET */
-  *,
-  *::before,
-  *::after {
-    box-sizing: border-box;
-  }
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
 
-  html,
-  body {
-    width: 100%;
-    height: 100%;
+html,
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
 
-    margin: 0;
-    padding: 0;
+  /* IVOIRE */
+  background: #F4EFE6;
+}
 
-    overflow: hidden;
+body {
+  font-family:
+    ui-sans-serif,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Helvetica,
+    Arial,
+    sans-serif;
 
-    /* FOND 100% TRANSPARENT */
-    background: transparent !important;
-  }
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 
-  body {
+  border: none;
+  border-radius: 0;
+  outline: none;
 
-    /* TYPO PROCHE DU DEFAULT NOTION */
-    font-family:
-      ui-sans-serif,
-      -apple-system,
-      BlinkMacSystemFont,
-      "Segoe UI",
-      Helvetica,
-      Arial,
-      sans-serif;
+  user-select: none;
+}
 
-    display: flex;
-    flex-direction: column;
+/* HEURE — VIOLET NOX */
 
-    align-items: center;
-    justify-content: center;
+#time {
+  margin: 0;
 
-    border: none;
-    outline: none;
+  color: #3E1849;
 
-    user-select: none;
-  }
+  font-size: clamp(32px, 8vh, 46px);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -2px;
 
+  white-space: nowrap;
+}
 
-  /* HEURE */
+/* DATE — FRAMBOISE */
 
-  #time {
+#date {
+  margin-top: 10px;
 
-    margin: 0;
+  color: #B63B68;
 
-    color: #B85CFF;
+  font-size: clamp(9px, 2.2vh, 11px);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 2px;
 
-    font-size: clamp(32px, 8vh, 46px);
-
-    font-weight: 700;
-
-    line-height: 1;
-
-    letter-spacing: -2px;
-
-    white-space: nowrap;
-  }
-
-
-  /* DATE */
-
-  #date {
-
-    margin-top: 10px;
-
-    color: #FFFFF0;
-
-    font-size: clamp(9px, 2.2vh, 11px);
-
-    font-weight: 700;
-
-    line-height: 1;
-
-    letter-spacing: 2px;
-
-    text-transform: uppercase;
-
-    white-space: nowrap;
-  }
+  text-transform: uppercase;
+  white-space: nowrap;
+}
 
 </style>
 </head>
 
-
 <body>
 
-  <div id="time">--:--</div>
-
-  <div id="date"></div>
-
+<div id="time">--:--</div>
+<div id="date"></div>
 
 <script>
 
-  const timeElement = document.getElementById("time");
-  const dateElement = document.getElementById("date");
+const timeElement = document.getElementById("time");
+const dateElement = document.getElementById("date");
 
+function updateClock() {
 
-  function updateClock() {
+  const now = new Date();
 
-    const now = new Date();
+  timeElement.textContent =
+    new Intl.DateTimeFormat("fr-FR", {
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: false
+    }).format(now);
 
+  dateElement.textContent =
+    new Intl.DateTimeFormat("fr-FR", {
+      weekday: "long",
+      day: "2-digit",
+      month: "long"
+    }).format(now);
+}
 
-    /* HEURE : HH:MM */
+updateClock();
 
-    timeElement.textContent =
-      new Intl.DateTimeFormat("fr-FR", {
-
-        hour: "2-digit",
-        minute: "2-digit",
-        hour12: false
-
-      }).format(now);
-
-
-    /* DATE */
-
-    dateElement.textContent =
-      new Intl.DateTimeFormat("fr-FR", {
-
-        weekday: "long",
-        day: "2-digit",
-        month: "long"
-
-      }).format(now);
-
-  }
-
-
-  updateClock();
-
-
-  /* Mise à jour régulière */
-
-  setInterval(updateClock, 1000);
+/* Actualisation toutes les 10 secondes */
+setInterval(updateClock, 10000);
 
 </script>
 
 </body>
-
 </html>
