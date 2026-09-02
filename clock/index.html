@@ -14,34 +14,31 @@
 html, body {
   margin: 0;
   padding: 0;
+
   width: 100%;
-  min-height: 100%;
-  background: transparent;
-  font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+  height: 100%;
+
+  overflow: hidden;
+
+  background: #08050D;
+
+  font-family: Inter, -apple-system, BlinkMacSystemFont,
+               "Segoe UI", Arial, sans-serif;
 }
 
-/* Centre le widget dans la page */
-body {
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-}
-
-/* TAILLE RÉELLE DU WIDGET */
 .widget {
-  width: 400px;
-  height: 140px;
-  max-width: 100%;
+  position: absolute;
+  inset: 0;
 
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
 
   background:
     radial-gradient(
       circle at 50% 0%,
-      rgba(168, 85, 247, 0.20),
+      rgba(168, 85, 247, 0.22),
       transparent 65%
     ),
     linear-gradient(
@@ -52,26 +49,26 @@ body {
 
   border: 1px solid rgba(168, 85, 247, 0.35);
   border-radius: 16px;
-
-  overflow: hidden;
 }
 
-/* HEURE */
 .time {
   color: #F5F0FF;
+
   font-size: 42px;
   font-weight: 700;
   line-height: 1;
+
   letter-spacing: -2px;
 }
 
-/* DATE */
 .date {
   margin-top: 10px;
 
   color: #B05CFF;
+
   font-size: 11px;
   font-weight: 600;
+
   letter-spacing: 2px;
   text-transform: uppercase;
   white-space: nowrap;
@@ -90,28 +87,29 @@ body {
 </div>
 
 <script>
+
 function updateClock() {
 
   const now = new Date();
 
-  const time = new Intl.DateTimeFormat("fr-FR", {
-    hour: "2-digit",
-    minute: "2-digit",
-    hour12: false
-  }).format(now);
+  document.getElementById("time").textContent =
+    new Intl.DateTimeFormat("fr-FR", {
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: false
+    }).format(now);
 
-  const date = new Intl.DateTimeFormat("fr-FR", {
-    weekday: "long",
-    day: "2-digit",
-    month: "long"
-  }).format(now);
-
-  document.getElementById("time").textContent = time;
-  document.getElementById("date").textContent = date;
+  document.getElementById("date").textContent =
+    new Intl.DateTimeFormat("fr-FR", {
+      weekday: "long",
+      day: "2-digit",
+      month: "long"
+    }).format(now);
 }
 
 updateClock();
 setInterval(updateClock, 10000);
+
 </script>
 
 </body>
