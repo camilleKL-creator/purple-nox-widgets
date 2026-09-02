@@ -7,114 +7,111 @@
 <title>Purple Nox Clock</title>
 
 <style>
-  * {
-    box-sizing: border-box;
-  }
+* {
+  box-sizing: border-box;
+}
 
-  html,
-  body {
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    background: transparent;
-  }
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  min-height: 100%;
+  background: transparent;
+  font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+}
 
-  body {
-    font-family: Inter, -apple-system, BlinkMacSystemFont,
-                 "Segoe UI", Roboto, Arial, sans-serif;
-  }
+/* Centre le widget dans la page */
+body {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
 
-  .clock {
-    width: 100vw;
-    height: 100vh;
-    min-height: 110px;
+/* TAILLE RÉELLE DU WIDGET */
+.widget {
+  width: 400px;
+  height: 140px;
+  max-width: 100%;
 
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 
-    background:
-      radial-gradient(
-        circle at 50% 0%,
-        rgba(150, 70, 255, 0.22) 0%,
-        rgba(80, 30, 130, 0.10) 40%,
-        transparent 70%
-      ),
-      linear-gradient(
-        135deg,
-        #160B24 0%,
-        #0D0715 55%,
-        #08050D 100%
-      );
+  background:
+    radial-gradient(
+      circle at 50% 0%,
+      rgba(168, 85, 247, 0.20),
+      transparent 65%
+    ),
+    linear-gradient(
+      135deg,
+      #160B24,
+      #08050D
+    );
 
-    border: 1px solid rgba(168, 85, 247, 0.25);
-    border-radius: 18px;
+  border: 1px solid rgba(168, 85, 247, 0.35);
+  border-radius: 16px;
 
-    box-shadow:
-      inset 0 1px 0 rgba(255,255,255,0.04),
-      inset 0 0 35px rgba(139,92,246,0.05);
-  }
+  overflow: hidden;
+}
 
-  .time {
-    color: #F5F0FF;
+/* HEURE */
+.time {
+  color: #F5F0FF;
+  font-size: 42px;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -2px;
+}
 
-    font-size: clamp(42px, 10vw, 72px);
-    font-weight: 700;
-    line-height: 0.95;
-    letter-spacing: -3px;
+/* DATE */
+.date {
+  margin-top: 10px;
 
-    text-shadow:
-      0 0 25px rgba(168,85,247,0.18);
-  }
-
-  .date {
-    margin-top: 12px;
-
-    color: #B05CFF;
-
-    font-size: clamp(10px, 2.2vw, 14px);
-    font-weight: 600;
-    letter-spacing: 2.4px;
-    text-transform: uppercase;
-  }
+  color: #B05CFF;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
 </style>
 </head>
 
 <body>
 
-<div class="clock">
+<div class="widget">
+
   <div class="time" id="time">--:--</div>
+
   <div class="date" id="date"></div>
+
 </div>
 
 <script>
-  function updateClock() {
-    const now = new Date();
+function updateClock() {
 
-    const time = new Intl.DateTimeFormat("fr-FR", {
-      hour: "2-digit",
-      minute: "2-digit",
-      hour12: false
-    }).format(now);
+  const now = new Date();
 
-    const date = new Intl.DateTimeFormat("fr-FR", {
-      weekday: "long",
-      day: "2-digit",
-      month: "long"
-    }).format(now);
+  const time = new Intl.DateTimeFormat("fr-FR", {
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: false
+  }).format(now);
 
-    document.getElementById("time").textContent = time;
-    document.getElementById("date").textContent = date;
-  }
+  const date = new Intl.DateTimeFormat("fr-FR", {
+    weekday: "long",
+    day: "2-digit",
+    month: "long"
+  }).format(now);
 
-  updateClock();
+  document.getElementById("time").textContent = time;
+  document.getElementById("date").textContent = date;
+}
 
-  // Vérification toutes les 10 secondes,
-  // mais l'affichage reste uniquement HH:MM.
-  setInterval(updateClock, 10000);
+updateClock();
+setInterval(updateClock, 10000);
 </script>
 
 </body>
