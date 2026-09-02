@@ -4,106 +4,103 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Purple Nox Widgets</title>
+<title>Purple Nox Clock</title>
 
 <style>
-* {
-  box-sizing: border-box;
-}
+  * {
+    box-sizing: border-box;
+  }
 
-html, body {
-  margin: 0;
-  min-height: 100%;
-}
+  html,
+  body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
 
-body {
-  min-height: 100vh;
+    overflow: hidden;
 
-  background: #181219;
-  color: #F4EFE6;
+    /* Même couleur que le fond sombre Notion */
+    background: #191919;
+  }
 
-  font-family:
-    ui-sans-serif,
-    -apple-system,
-    BlinkMacSystemFont,
-    "Segoe UI",
-    Helvetica,
-    Arial,
-    sans-serif;
+  body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 
-  display: flex;
-  justify-content: center;
+    font-family:
+      ui-sans-serif,
+      -apple-system,
+      BlinkMacSystemFont,
+      "Segoe UI",
+      Helvetica,
+      Arial,
+      sans-serif;
 
-  padding: 80px 24px;
-}
+    user-select: none;
+  }
 
-.container {
-  width: 100%;
-  max-width: 520px;
-  text-align: center;
-}
+  /* 🍇 HEURE — VIOLET NOX */
+  #time {
+    margin: 0;
 
-h1 {
-  margin: 0;
+    color: #3E1849;
 
-  color: #F4EFE6;
+    font-size: clamp(44px, 11vh, 58px);
+    font-weight: 800;
+    line-height: 0.95;
+    letter-spacing: -2px;
 
-  font-size: 42px;
-  font-weight: 700;
-  letter-spacing: -1px;
-}
+    white-space: nowrap;
+  }
 
-.subtitle {
-  margin: 10px 0 45px;
+  /* 🍓 DATE — FRAMBOISE */
+  #date {
+    margin-top: 12px;
 
-  color: #B63B68;
+    color: #B63B68;
 
-  font-size: 14px;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-}
+    font-size: clamp(12px, 3vh, 15px);
+    font-weight: 700;
+    line-height: 1;
 
-.widget-link {
-  display: block;
-
-  width: 100%;
-  padding: 22px;
-
-  color: #F4EFE6;
-  background: #3E1849;
-
-  text-decoration: none;
-
-  font-size: 18px;
-  font-weight: 600;
-
-  border: none;
-  border-radius: 10px;
-
-  transition: background 0.2s ease;
-}
-
-.widget-link:hover {
-  background: #B63B68;
-}
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
 </style>
 </head>
 
 <body>
 
-<main class="container">
+<div id="time">--:--</div>
+<div id="date"></div>
 
-  <h1>PURPLE NOX</h1>
+<script>
+  const time = document.getElementById("time");
+  const date = document.getElementById("date");
 
-  <div class="subtitle">
-    WIDGETS NOTION
-  </div>
+  function updateClock() {
+    const now = new Date();
 
-  <a class="widget-link" href="./clock/">
-    Horloge
-  </a>
+    time.textContent = new Intl.DateTimeFormat("fr-FR", {
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: false
+    }).format(now);
 
-</main>
+    date.textContent = new Intl.DateTimeFormat("fr-FR", {
+      weekday: "long",
+      day: "2-digit",
+      month: "long"
+    }).format(now);
+  }
+
+  updateClock();
+  setInterval(updateClock, 1000);
+</script>
 
 </body>
 </html>
